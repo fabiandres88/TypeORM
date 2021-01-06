@@ -1,4 +1,5 @@
-import {Entity, ObjectIdColumn, ObjectID, Column} from 'typeorm';
+import {Entity, ObjectIdColumn, ObjectID, Column, OneToMany} from 'typeorm';
+import { Tweet } from './tweet';
 
 @Entity( {name: 'users'} )
 export class User {
@@ -15,4 +16,6 @@ export class User {
     @Column()
     age: number;
 
+    @OneToMany(type => Tweet, (tweet) => tweet.user)
+    tweets: Tweet[];
 }
