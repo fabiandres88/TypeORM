@@ -3,6 +3,8 @@
    "database": "test",
    "synchronize": true,
    "logging": false,
+   "useUnifiedTopology": true,
+   "useNewUrlParser": true,
    "entities": [
       "src/entity/**/*.ts"
    ],
