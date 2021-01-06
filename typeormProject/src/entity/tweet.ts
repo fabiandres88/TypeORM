@@ -1,4 +1,4 @@
-import {Entity, ObjectIdColumn, ObjectID, Column, ManyToOne} from 'typeorm';
+import {Entity, ObjectIdColumn, ObjectID, Column} from 'typeorm';
 import { User } from './User';
 
 @Entity( {name: 'tweets'} )
@@ -13,6 +13,6 @@ export class Tweet {
     @Column()
     content: string;
 
-    @ManyToOne(type => User, user => user.tweets)
+    @Column(type => User)
     user: User
 }

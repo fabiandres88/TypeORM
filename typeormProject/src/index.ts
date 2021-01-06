@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from 'typeorm';
 import {User} from "./entity/User";
-import { uRepo } from './repository/User';
+import { find, uRepo } from './repository/User';
 
 createConnection().then(async connection => {
 
@@ -21,4 +21,8 @@ createConnection().then(async connection => {
 await uRepo().catch((error) => {
     console.log(error);
 });
+
+await find().catch((error) => {
+    console.log(error);
+})
 }).catch(error => console.log(error));
