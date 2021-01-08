@@ -1,5 +1,4 @@
 import {Entity, ObjectIdColumn, ObjectID, Column} from 'typeorm';
-import { Tweet } from './tweet';
 
 @Entity( {name: 'users'} )
 export class User {
