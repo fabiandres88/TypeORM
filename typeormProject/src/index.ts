@@ -1,28 +1,14 @@
-import "reflect-metadata";
-import {createConnection} from 'typeorm';
-import {User} from "./entity/User";
-import { find, uRepo } from './repository/User';
+import express = require('express');
+import morgan = require ('morgan');
+import userRoutes from './routes/user';   
 
-createConnection().then(async connection => {
+const app = express();
 
-    // console.log("Inserting a new user into the database...");
-    // const user = new User();
-    // user.firstName = "Timber";
-    // user.lastName = "Saw";
-    // user.age = 25;
-    // await connection.manager.save(user);
-    // console.log("Saved a new user with id: " + user.id);
+app.use(morgan('dev'));
+app.use(express.json());
 
-    // console.log("Loading users from the database...");
-    // const users = await connection.manager.find(User);
-    // console.log("Loaded users: ", users);
+//routes
+app.use(userRoutes);
 
-    // console.log("Here you can setup and run express/koa/any other framework.");
-await uRepo().catch((error) => {
-    console.log(error);
-});
-
-await find().catch((error) => {
-    console.log(error);
-})
-}).catch(error => console.log(error));
+app.listen(3000);
+console.log('Server ready on port: ', 3000);
