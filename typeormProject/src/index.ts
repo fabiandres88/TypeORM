@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import express = require('express');
 import morgan = require ('morgan');
-import userRoutes from './routes/user';
 import { createConnection } from 'typeorm' 
+import userRoutes from './routes/user';
+import tweetRoute from './routes/tweets';
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 //Routes
 app.use(userRoutes);
+app.use(tweetRoute);
 
 //Databsae connection
 createConnection().then(async connection => { 
