@@ -25,6 +25,9 @@ export class User {
     @IsEmail()
     email: string;
 
+    @Column()
+    tweets: Array<any>;
+
     @CreateDateColumn()
     createdAt: Date;
 
