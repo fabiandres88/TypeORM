@@ -6,7 +6,7 @@ import { validate } from 'class-validator';
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const users = await getRepository(User).find();        
+        const users = await getRepository(User).find();
         return res.status(200).json(users);
     }
     catch (error) {
@@ -18,16 +18,17 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
 export const getUser = async (req: Request, res: Response): Promise<Response> => {
     try {
         const user = await getRepository(User).findOne(req.params.id);
-        const tweets = await getRepository(Tweet).find();        
-        var result: Array<any>=[];
+        const tweetsResult = await getRepository(Tweet).find();
+        var result: Array<any> = [];
+        user.tweets = [];
         result.push(user);
-        if (tweets) {
-            for (let i = 0; i < tweets.length; i++) {
-                if (tweets[i].user === req.params.id) {
-                    result.push(tweets[i])
+        if (tweetsResult) {
+            for (let i = 0; i < tweetsResult.length; i++) {
+                if (tweetsResult[i].user === req.params.id) {
+                    result[0].tweets.push(tweetsResult[i])
                 }
-            }            
-        }        
+            }
+        }
         return res.status(200).json(result);
     }
     catch (error) {
