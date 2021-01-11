@@ -29,7 +29,7 @@ export const getTweetService = async () => {
         return tweetsResult;        
     }
     catch (error) {
-        throw Error('Error while paginating user.')
+        throw Error('Error while paginating tweets.')
     };
 };
 
@@ -49,6 +49,46 @@ export const createArrayTweetService = (query:any, user : any, tweetsResult: any
         return result;        
     }
     catch (error) {
-        throw Error('Error while paginating user.')
+        throw Error('Error while creating array of tweets.');
     };
+};
+
+export const createUserservice = (query: any) => {
+    try {
+        const user = getRepository(User).create(query);
+        return user;    
+    }
+    catch (error) {
+        throw Error('Error while creating user.');
+    };    
+};
+
+export const saveUserservice = (query: any) => {
+    try {
+        const response = getRepository(User).save(query);
+        return response;
+    }
+    catch (error) {
+        throw Error('Error while saving user.');
+    };    
+};
+
+export const updateUserservice = (user:any, query: any) => {
+    try {
+        const response = getRepository(User).merge(user, query);
+        return response;
+    }
+    catch (error) {
+        throw Error('Error while merging user.');
+    };    
+};
+
+export const deleteUserservice = (query: any) => {
+    try {
+        const response = getRepository(User).delete(query);
+        return response;
+    }
+    catch (error) {
+        throw Error('Error while merging user.');
+    };    
 };
