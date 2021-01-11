@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import { Tweet } from '../entity/tweets';
 import { validate } from 'class-validator';
+import { getTweetService } from '../services/user';
+import { getTweetByService, createTweetservice, saveTweetservice,
+    updateTweetservice, deleteTweetservice
+} from '../services/tweets';
 
 export const getTweets = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const tweets = await getRepository(Tweet).find();
+        const tweets = await getTweetService();
         return res.status(200).json(tweets);
     }
     catch (error) {
@@ -16,7 +18,7 @@ export const getTweets = async (req: Request, res: Response): Promise<Response> 
 
 export const getTweet = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const tweet = await getRepository(Tweet).findOne(req.params.id);
+        const tweet = await getTweetByService(req.params.id);
         return res.status(200).json(tweet);
     }
     catch (error) {
@@ -27,10 +29,10 @@ export const getTweet = async (req: Request, res: Response): Promise<Response> =
 
 export const postTweet = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const tweet = getRepository(Tweet).create(req.body);
+        const tweet = createTweetservice(req.body);
         const validations = await validate(tweet);
         if (validations.length === 0) {
-            const response = await getRepository(Tweet).save(tweet);
+            const response = await saveTweetservice(tweet);
             return res.status(200).json(response);
         }
         return res.status(400).json(validations);
@@ -43,17 +45,17 @@ export const postTweet = async (req: Request, res: Response): Promise<Response> 
 
 export const updateTweet = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const tweet = await getRepository(Tweet).findOne(req.params.id);
+        const tweet = await getTweetByService(req.params.id);
         if (tweet) {
-            getRepository(Tweet).merge(tweet, req.body);
+            updateTweetservice(tweet, req.body);
             const validations = await validate(tweet);
             if (validations.length === 0) {
-                const response = await getRepository(Tweet).save(tweet);
+                const response = await saveTweetservice(tweet);
                 return res.status(200).json(response);
             }
             return res.status(400).json(validations);
         }
-        return res.status(404).json({ message: "User does not exit." });
+        return res.status(404).json({ message: "Tweet does not exit." });
     }
     catch (error) {
         console.log('Error: ', error.message);
@@ -63,8 +65,8 @@ export const updateTweet = async (req: Request, res: Response): Promise<Response
 
 export const deleteTweet = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const result = getRepository(Tweet).delete(req.params.id);
-        return res.status(200).json({ message: "User deleted." });
+        const result = deleteTweetservice(req.params.id);
+        return res.status(200).json({ message: "Tweet deleted." });
     }
     catch (error) {
         console.log('Error: ', error.message);
