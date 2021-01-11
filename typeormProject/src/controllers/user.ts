@@ -1,34 +1,25 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { Any, getRepository } from 'typeorm';
 import { User } from '../entity/User';
-import { Tweet } from '../entity/tweets';
 import { validate } from 'class-validator';
+import { getUsersService, getUserService, getTweetService, createArrayTweetService } from '../services/user';
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const users = await getRepository(User).find();
-        return res.status(200).json(users);
+        const users = await getUsersService();
+        return res.status(200).json({status: 200, data: users, message: 'Successfully users retrieved.'});
     }
     catch (error) {
         console.log('Error: ', error.message);
-        return res.status(400).send();
+        return res.status(400).json({status: 400, message: error.message});
     };
 };
 
 export const getUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const user = await getRepository(User).findOne(req.params.id);
-        const tweetsResult = await getRepository(Tweet).find();
-        var result: Array<any> = [];
-        user.tweets = [];
-        result.push(user);
-        if (tweetsResult) {
-            for (let i = 0; i < tweetsResult.length; i++) {
-                if (tweetsResult[i].user === req.params.id) {
-                    result[0].tweets.push(tweetsResult[i])
-                }
-            }
-        }
+        const user = await getUserService(req.params.id);      
+        const tweetsResult = await getTweetService();
+        const result= createArrayTweetService(req.params.id, user, tweetsResult);        
         return res.status(200).json(result);
     }
     catch (error) {
