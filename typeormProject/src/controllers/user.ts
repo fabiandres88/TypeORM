@@ -19,7 +19,7 @@ export class UserControllers {
     }
 
     @Get('/')
-    static async getUser(req: Request, res: Response): Promise<Response> {
+    static async getUser(@Req() req: Request, @Res() res: Response): Promise<Response> {
         try {
             const user = await userServices.getUserService(req.params.id);
             const tweetsResult = await userServices.getTweetService();
@@ -33,7 +33,7 @@ export class UserControllers {
     };
 
     @Post('/')
-    static async postUser(req: Request, res: Response): Promise<Response> {
+    static async postUser(@Req() req: Request, @Res() res: Response): Promise<Response> {
         try {
             const user = userServices.createUserservice(req.body);
             const validations = await validate(user);
@@ -50,7 +50,7 @@ export class UserControllers {
     };
 
     @Put('/')
-    static async updateUser(req: Request, res: Response): Promise<Response> {
+    static async updateUser(@Req() req: Request, @Res() res: Response): Promise<Response> {
         try {
             const user = await userServices.getUserService(req.params.id);
             if (user) {
@@ -71,7 +71,7 @@ export class UserControllers {
     };
 
     @Delete('/')
-    static async deleteUser(req: Request, res: Response): Promise<Response> {
+    static async deleteUser(@Req() req: Request, @Res()res: Response): Promise<Response> {
         try {
             const result = userServices.deleteUserservice(req.params.id);
             return res.status(200).json({ message: "User deleted." });

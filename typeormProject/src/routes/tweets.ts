@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { getTweets, getTweet, postTweet, updateTweet, deleteTweet } from '../controllers/tweets'
-
+import { TweetController } from '../controllers/tweets';
 
 const router = Router();
 
-router.get('/tweets',getTweets);
-router.get('/tweets/:id', getTweet);
-router.post('/tweets', postTweet);
-router.put('/tweets/:id', updateTweet);
-router.delete('/tweets/:id', deleteTweet);
+router.get('/tweets', TweetController.getTweets);
+router.get('/tweets/:id', TweetController.getTweet);
+router.post('/tweets', TweetController.postTweet);
+router.put('/tweets/:id', TweetController.updateTweet);
+router.delete('/tweets/:id', TweetController.deleteTweet);
 
 export default router

@@ -1,52 +1,56 @@
 import { getRepository } from 'typeorm';
 import { Tweet } from '../entity/tweets';
+import { Param, Body } from 'routing-controllers';
 
-export const getTweetByService = async (query: any) => {
-    try {
-        const tweet = await getRepository(Tweet).findOne(query);        
-        return tweet;        
-    }
-    catch (error) {
-        throw Error('Error while paginating tweet.')
+export class tweetServices {
+
+    static async getTweetByService (@Param('id') id: any) {
+        try {
+            const tweet = await getRepository(Tweet).findOne(id);        
+            return tweet;        
+        }
+        catch (error) {
+            throw Error('Error while paginating tweet.')
+        };
     };
-};
-
-export const createTweetservice = (query: any) => {
-    try {
-        const tweet = getRepository(Tweet).create(query);
-        return tweet;    
-    }
-    catch (error) {
-        throw Error('Error while creating tweet.');
-    };    
-};
-
-export const saveTweetservice = (query: any) => {
-    try {
-        const response = getRepository(Tweet).save(query);
-        return response;
-    }
-    catch (error) {
-        throw Error('Error while saving tweet.');
-    };    
-};
-
-export const updateTweetservice = (tweet:any, query: any) => {
-    try {
-        const response = getRepository(Tweet).merge(tweet, query);
-        return response;
-    }
-    catch (error) {
-        throw Error('Error while merging tweet.');
-    };    
-};
-
-export const deleteTweetservice = (query: any) => {
-    try {
-        const response = getRepository(Tweet).delete(query);
-        return response;
-    }
-    catch (error) {
-        throw Error('Error while deleting tweet.');
-    };    
-};
+    
+    static createTweetservice (@Body() body: any) {
+        try {
+            const tweet = getRepository(Tweet).create(body);
+            return tweet;    
+        }
+        catch (error) {
+            throw Error('Error while creating tweet.');
+        };    
+    };
+    
+    static saveTweetservice (query: any) {
+        try {
+            const response = getRepository(Tweet).save(query);
+            return response;
+        }
+        catch (error) {
+            throw Error('Error while saving tweet.');
+        };    
+    };
+    
+    static updateTweetservice (tweet:any, @Body() body: any) {
+        try {
+            const response = getRepository(Tweet).merge(tweet, body);
+            return response;
+        }
+        catch (error) {
+            throw Error('Error while merging tweet.');
+        };    
+    };
+    
+    static async deleteTweetservice (@Param('id') id: any) {
+        try {
+            const response = getRepository(Tweet).delete(id);
+            return response;
+        }
+        catch (error) {
+            throw Error('Error while deleting tweet.');
+        };    
+    };
+}
