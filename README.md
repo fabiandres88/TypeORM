@@ -6,3 +6,4 @@ A simple project (REST API), using:
 - TypeORM
 - MongoDB
 - Class-validator
+- Routing-controllers
