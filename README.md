@@ -3,7 +3,9 @@
 A simple project (REST API), using:
 
 - Typescript
-- TypeORM
+- typeorm
 - MongoDB
-- Class-validator
-- Routing-controllers
+- class-validator
+- routing-controllers
+- jest
+- supertest
