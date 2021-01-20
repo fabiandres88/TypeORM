@@ -1,15 +1,24 @@
+import supertest = require('supertest');
+import  connection   from '../../src/connection';
 import app from '../app';
-import request = require ('supertest');
+var id:any =
 
-test("GET",   (done) => {
-     request(app)
-    .get('/users')
-    .expect(200)
-    done();
+beforeAll(async () => {
+    await connection.create();
+});
+
+afterAll(async () => {
+    await connection.close();
 })
 
-test("POST", (done) => {
-    request(app)
+it("Get all users",async ()=> {
+    const response = await supertest(app).get('/users');
+    expect(response.status).toBe(200);
+    console.log(response.body);
+});
+
+test("Post a user", async (done) => {
+    const response = await supertest(app)
     .post('/users')
     .send({
         "firstName": "User Test",
@@ -18,10 +27,36 @@ test("POST", (done) => {
         "email": "thiago@gmail.com",
         "tweets": []
     })
-    .expect((res) => {
-        console.log(res);        
-        res.body.firstName = "User Test"
-    })
-    .expect(200)
+    expect(response.status).toBe(201);
+    console.log(response.body);
+    id = response.body.id;
+    done();    
+});
+
+test("Get a user by id", async (done) => {
+    const result = await supertest(app).get(`/users/${id}`);
+    expect(result.status).toBe(200);
+    console.log(result.body);
     done();
-})
+});
+
+test("Update a user by id", async (done) => {
+    const result = await supertest(app).put(`/users/${id}`)
+    .send({
+        "firstName": "First Name Updated",
+        "lastName": "Last Name Updated",
+        "age": 2,
+        "email": "thiago@updated.com",
+        "tweets": []
+    })
+    expect(result.status).toBe(200);
+    console.log(result.body);    
+    done();
+});
+
+test("Delete a user by id", async (done) => {
+    const result = await supertest(app).delete(`/users/${id}`);
+    expect(result.status).toBe(200);
+    console.log(result.body);
+    done();
+});
