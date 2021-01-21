@@ -1,12 +1,11 @@
 import app from './app'
-import { createConnection } from 'typeorm' 
+import { createConnection } from 'typeorm'
 
 //Databsae connection
-createConnection().then(async connection => { 
-   console.log("TypeORM with MongoDB"); 
- }).catch(error => console.log(error));
+createConnection().then(async connection => {
+  console.log("MongoDB connection with successful TypeORM");
+}).catch(error => console.log(error));
 
- //Server connection
-app.listen(3000);
-console.log('Server ready on port: ', 3000);
-
+//Server connection
+app.listen(process.env.PORT);
+console.log('Server ready on port: ', process.env.PORT);

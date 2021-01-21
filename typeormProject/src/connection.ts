@@ -1,4 +1,4 @@
-import { createConnection, getConnection} from 'typeorm';
+import { createConnection, getConnection } from 'typeorm';
 
 const connection = {
     async create() {
@@ -8,16 +8,14 @@ const connection = {
         catch {
             throw Error
         }
-        
     },
     async close() {
-    try {
-        await getConnection().close();
-    }
-    catch {
-        throw Error
-    }
-        
+        try {
+            await getConnection().close();
+        }
+        catch {
+            throw Error
+        }
     }
 }
 
