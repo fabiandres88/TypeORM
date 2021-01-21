@@ -13,8 +13,7 @@ afterAll(async () => {
 
 it("Get all users",async ()=> {
     const response = await supertest(app).get('/users');
-    expect(response.status).toBe(200);
-    console.log(response.body);
+    expect(response.status).toBe(200);    
 });
 
 test("Post a user", async (done) => {
@@ -27,16 +26,14 @@ test("Post a user", async (done) => {
         "email": "thiago@gmail.com",
         "tweets": []
     })
-    expect(response.status).toBe(201);
-    console.log(response.body);
+    expect(response.status).toBe(201);    
     id = response.body.id;
     done();    
 });
 
 test("Get a user by id", async (done) => {
     const result = await supertest(app).get(`/users/${id}`);
-    expect(result.status).toBe(200);
-    console.log(result.body);
+    expect(result.status).toBe(200);    
     done();
 });
 
@@ -49,14 +46,12 @@ test("Update a user by id", async (done) => {
         "email": "thiago@updated.com",
         "tweets": []
     })
-    expect(result.status).toBe(200);
-    console.log(result.body);    
+    expect(result.status).toBe(200);        
     done();
 });
 
 test("Delete a user by id", async (done) => {
     const result = await supertest(app).delete(`/users/${id}`);
-    expect(result.status).toBe(200);
-    console.log(result.body);
+    expect(result.status).toBe(200);    
     done();
 });
