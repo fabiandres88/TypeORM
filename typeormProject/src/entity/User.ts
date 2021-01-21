@@ -1,5 +1,5 @@
 import { IsEmail, IsInt, Length, Max, Min } from 'class-validator';
-import { Entity, ObjectIdColumn, ObjectID, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, ObjectIdColumn, ObjectID, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User {
@@ -16,14 +16,22 @@ export class User {
     lastName: string;
 
     @Column()
+    @Length(4, 10)
+    dni: string;
+
+    @Column()
     @IsInt()
-    @Min(0)
+    @Min(1)
     @Max(99)
     age: number;
 
     @Column()
     @IsEmail()
     email: string;
+
+    @Column()
+    @Length(12, 15)
+    password: string;
 
     @Column()
     tweets: Array<any>;
