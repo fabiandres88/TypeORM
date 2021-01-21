@@ -38,7 +38,7 @@ export class TweetController {
             const validations = await validate(tweet);
             if (validations.length === 0) {
                 const response = await tweetServices.saveTweetservice(tweet);
-                return res.status(200).json(response);
+                return res.status(201).json(response);
             }
             return res.status(400).json(validations);
         }
