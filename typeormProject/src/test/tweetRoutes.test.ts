@@ -21,12 +21,13 @@ it("Get all tweets",async ()=> {
 test("Post a user", async (done) => {
     const response = await supertest(app)
     .post('/users')
-    .send({
-        "firstName": "User Test",
-        "lastName": "Ramirez Jaimes",
+    .send({        
+        "firstName": "Victoria Carolina",
+        "lastName": "Jaimes Naranjo",
+        "dni": "1098000765",
         "age": 1,
-        "email": "thiago@gmail.com",
-        "tweets": []
+        "email": "caro@gmail.com",
+        "password": "password2020"
     })
     expect(response.status).toBe(201);    
     user = response.body.id;

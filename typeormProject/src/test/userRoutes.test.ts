@@ -1,7 +1,7 @@
 import supertest = require('supertest');
 import  connection   from '../../src/connection';
 import app from '../app';
-var id:any =
+var id:any = "";
 
 beforeAll(async () => {
     await connection.create();
@@ -19,12 +19,13 @@ it("Get all users",async ()=> {
 test("Post a user", async (done) => {
     const response = await supertest(app)
     .post('/users')
-    .send({
-        "firstName": "User Test",
-        "lastName": "Ramirez Jaimes",
+    .send({        
+        "firstName": "Victoria Carolina",
+        "lastName": "Jaimes Naranjo",
+        "dni": "1098000765",
         "age": 1,
-        "email": "thiago@gmail.com",
-        "tweets": []
+        "email": "caro@gmail.com",
+        "password": "password2020"
     })
     expect(response.status).toBe(201);    
     id = response.body.id;
@@ -39,12 +40,13 @@ test("Get a user by id", async (done) => {
 
 test("Update a user by id", async (done) => {
     const result = await supertest(app).put(`/users/${id}`)
-    .send({
-        "firstName": "First Name Updated",
-        "lastName": "Last Name Updated",
-        "age": 2,
-        "email": "thiago@updated.com",
-        "tweets": []
+    .send({        
+        "firstName": "Victoria Carolina",
+        "lastName": "Jaimes Naranjo",
+        "dni": "1098000765",
+        "age": 1,
+        "email": "caro@gmail.com",
+        "password": "password2020"
     })
     expect(result.status).toBe(200);        
     done();
