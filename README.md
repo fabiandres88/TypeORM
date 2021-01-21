@@ -9,3 +9,4 @@ A simple project (REST API), using:
 - routing-controllers
 - jest
 - supertest
+- dotenv
