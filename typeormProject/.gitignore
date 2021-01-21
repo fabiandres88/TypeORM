@@ -5,3 +5,6 @@ build/
 tmp/
 temp/
 coverage
+
+//dotenv environtment variables file
+.env
