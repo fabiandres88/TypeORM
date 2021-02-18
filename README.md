@@ -11,7 +11,9 @@ A simple project (REST API), using:
 - supertest
 - dotenv
 
-## Endpoint users
+# Simple API
+
+# Endpoint users
 
 ### GET request
 
@@ -139,7 +141,7 @@ Response example:
 }
 ```
 
-## Endpoint tweets
+# Endpoint tweets
 
 ### GET request
 
