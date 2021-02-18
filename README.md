@@ -11,6 +11,33 @@ A simple project (REST API), using:
 - supertest
 - dotenv
 
+### Starting project:
+
+- Install project:
+
+```
+$ npm install
+```
+- Start project:
+```
+$ npm run start
+```
+```
+> typeorm@0.0.1 start 
+> ts-node src/index.ts
+
+Server ready on port:  3000
+MongoDB connection with successful TypeORM
+```
+
+### Running set of unit tests
+```
+$ npm run test
+```
+```
+> typeorm@0.0.1 test
+> jest --coverage  
+```
 # Simple API
 
 # Endpoint users
