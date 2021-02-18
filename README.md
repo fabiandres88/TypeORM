@@ -138,3 +138,107 @@ Response example:
     "message": "User deleted."
 }
 ```
+
+## Endpoint tweets
+
+### GET request
+
+URL example:
+http://localhost:3000/tweets
+Response example:
+
+```
+[
+    {
+        "id": "602e8eb0816f8a2e9c4fa1a3",
+        "title": "First Tweet",
+        "content": "Creating message.",
+        "user": "602e8e07816f8a2e9c4fa1a2"
+    },
+    {
+        "id": "602e8f20816f8a2e9c4fa1a4",
+        "title": "Second Tweet",
+        "content": "Creating second message.",
+        "user": "602e8e07816f8a2e9c4fa1a2"
+    }
+]
+```
+
+### POST request
+
+URL example:
+http://localhost:3000/tweets
+
+Body request example:
+
+```
+{
+    "title": "First Tweet",
+    "content": "Creating message.",
+    "user": "602e8e07816f8a2e9c4fa1a2" 
+}
+```
+Response example:
+
+```
+{
+    "title": "First Tweet",
+    "content": "Creating message.",
+    "user": "602e8e07816f8a2e9c4fa1a2",
+    "id": "602e8eb0816f8a2e9c4fa1a3"
+}
+```
+
+### PUT request
+
+URL example:
+http://localhost:3000/tweets/602e8eb0816f8a2e9c4fa1a3
+
+Body request example:
+
+```
+{
+    "title": "First tweet updated"
+}
+```
+Response example:
+
+```
+{
+    "id": "602e8eb0816f8a2e9c4fa1a3",
+    "title": "First tweet updated",
+    "content": "Creating message.",
+    "user": "602e8e07816f8a2e9c4fa1a2"
+}
+```
+
+### GET request
+
+URL example:
+http://localhost:3000/tweets/602e8f20816f8a2e9c4fa1a4
+
+
+Response example:
+
+```
+{
+    "id": "602e8f20816f8a2e9c4fa1a4",
+    "title": "Second Tweet",
+    "content": "Creating second message.",
+    "user": "602e8e07816f8a2e9c4fa1a2"
+}
+```
+
+### DELETE request
+
+URL example:
+http://localhost:3000/tweets/602e8eb0816f8a2e9c4fa1a3
+
+
+Response example:
+
+```
+{
+    "message": "Tweet deleted."
+}
+```
